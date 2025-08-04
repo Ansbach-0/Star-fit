@@ -25,6 +25,51 @@ O objetivo principal do projeto foi aplicar os conhecimentos teóricos de engenh
 
 ---
 
+## 🎬 Protótipo em Ação
+
+A seguir, uma visão geral das principais seções do protótipo navegável, demonstrando a interface e a experiência do usuário planejadas.
+
+<div align="center">
+  <em>Tela Inicial - Apresentação do conceito e proposta de valor.</em>
+  <br><br>
+  <img src="https://raw.githubusercontent.com/Ansbach-0/StarFit/main/SS1.png" alt="Tela Inicial do StarFit" width="800px" />
+</div>
+
+---
+
+<div align="center">
+  <em>Seção de Funcionalidades - Detalhamento dos principais recursos da plataforma.</em>
+  <br><br>
+  <img src="https://raw.githubusercontent.com/Ansbach-0/StarFit/main/SS2.png" alt="Funcionalidades do StarFit" width="800px" />
+</div>
+
+---
+
+<div align="center">
+  <em>Dashboard Executivo - Exibição de métricas e gráficos interativos para gestão.</em>
+  <br><br>
+  <img src="https://raw.githubusercontent.com/Ansbach-0/StarFit/main/SS3.png" alt="Dashboard do StarFit" width="800px" />
+</div>
+
+---
+
+<div align="center">
+  <em>Arquitetura do Sistema - Demonstração visual da arquitetura planejada.</em>
+  <br><br>
+  <img src="https://raw.githubusercontent.com/Ansbach-0/StarFit/main/SS4.png" alt="Arquitetura do StarFit" width="800px" />
+</div>
+
+---
+
+<div align="center">
+  <em>App Mobile - Protótipo da experiência do aluno na palma da mão.</em>
+  <br><br>
+  <img src="https://raw.githubusercontent.com/Ansbach-0/StarFit/main/SS5.png" alt="App Mobile do StarFit" width="800px" />
+</div>
+
+---
+
+
 ## ✨ Funcionalidades Representadas no Protótipo
 
 A interface simula as seguintes funcionalidades-chave, planejadas para a versão completa do sistema:
@@ -109,7 +154,7 @@ Este repositório contém apenas o protótipo frontend. Para executá-lo localme
 
 ```bash
 # 1. Clone o repositório
-git clone [https://github.com/seu-usuario/StarFit.git](https://github.com/seu-usuario/StarFit.git)
+git clone [https://github.com/Ansbach-0/StarFit.git](https://github.com/Ansbach-0/StarFit.git)
 cd StarFit
 
 # 2. Instale as dependências do frontend
