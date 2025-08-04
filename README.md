@@ -1,7 +1,7 @@
 # ⭐ StarFit
 
 <div align="center">
-  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&duration=4000&pause=1000&color=FF6B6B&center=true&vCenter=true&width=600&lines=Protótipo+de+Sistema+de+Gerenciamento+de+Academias;Projeto+Acadêmico+-+Análise+e+Projeto+de+Sistemas" alt="Typing SVG" />
+  <img src="https://readme-typing-svg.herokuapp.com?font=Fira+Code&size=22&duration=4000&pause=1000&color=FF6B6B&center=true&vCenter=true&width=850&lines=Protótipo+de+Sistema+de+Gerenciamento+de+Academias;Projeto+Acadêmico+-+Análise+e+Projeto+de+Sistemas" alt="Typing SVG" />
 </div>
 
 <div align="center">
@@ -161,7 +161,8 @@ Este projeto foi concebido e desenvolvido por uma equipe de estudantes de Ciênc
 
 ## 🤝 Contribuições
 
-Sendo um projeto acadêmico com escopo definido, não estamos buscando contribuições externas ativamente. 
+Sendo um projeto acadêmico com escopo definido, não estamos buscando contribuições externas ativamente. No entanto, sinta-se à vontade para fazer um *fork* do projeto, explorar o código e nos contatar com sugestões ou dúvidas.
+
 ---
 
 ## 📄 Licença
