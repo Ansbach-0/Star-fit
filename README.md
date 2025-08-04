@@ -32,7 +32,7 @@ A seguir, uma visão geral das principais seções do protótipo navegável, dem
 <div align="center">
   <em>Tela Inicial - Apresentação do conceito e proposta de valor.</em>
   <br><br>
-  <img src="https://raw.githubusercontent.com/Ansbach-0/StarFit/main/SS1.png" alt="Tela Inicial do StarFit" width="800px" />
+  <img src="SS1.png" alt="Tela Inicial do StarFit" width="800px" />
 </div>
 
 ---
@@ -40,7 +40,7 @@ A seguir, uma visão geral das principais seções do protótipo navegável, dem
 <div align="center">
   <em>Seção de Funcionalidades - Detalhamento dos principais recursos da plataforma.</em>
   <br><br>
-  <img src="https://raw.githubusercontent.com/Ansbach-0/StarFit/main/SS2.png" alt="Funcionalidades do StarFit" width="800px" />
+  <img src="SS2.png" alt="Funcionalidades do StarFit" width="800px" />
 </div>
 
 ---
@@ -48,7 +48,7 @@ A seguir, uma visão geral das principais seções do protótipo navegável, dem
 <div align="center">
   <em>Dashboard Executivo - Exibição de métricas e gráficos interativos para gestão.</em>
   <br><br>
-  <img src="https://raw.githubusercontent.com/Ansbach-0/StarFit/main/SS3.png" alt="Dashboard do StarFit" width="800px" />
+  <img src="SS3.png" alt="Dashboard do StarFit" width="800px" />
 </div>
 
 ---
@@ -56,7 +56,7 @@ A seguir, uma visão geral das principais seções do protótipo navegável, dem
 <div align="center">
   <em>Arquitetura do Sistema - Demonstração visual da arquitetura planejada.</em>
   <br><br>
-  <img src="https://raw.githubusercontent.com/Ansbach-0/StarFit/main/SS4.png" alt="Arquitetura do StarFit" width="800px" />
+  <img src="SS4.png" alt="Arquitetura do StarFit" width="800px" />
 </div>
 
 ---
@@ -64,7 +64,7 @@ A seguir, uma visão geral das principais seções do protótipo navegável, dem
 <div align="center">
   <em>App Mobile - Protótipo da experiência do aluno na palma da mão.</em>
   <br><br>
-  <img src="https://raw.githubusercontent.com/Ansbach-0/StarFit/main/SS5.png" alt="App Mobile do StarFit" width="800px" />
+  <img src="SS5.png" alt="App Mobile do StarFit" width="800px" />
 </div>
 
 ---
