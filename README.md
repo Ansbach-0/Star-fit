@@ -19,7 +19,9 @@
 
 O **StarFit** é um protótipo conceitual de uma plataforma SaaS para gerenciamento de academias, desenvolvido no âmbito da disciplina de **Análise e Projeto de Sistemas** do curso de Ciência da Computação da **Universidade Cruzeiro do Sul**.
 
-O objetivo principal do projeto foi aplicar os conhecimentos teóricos de engenharia de software em um cenário prático, abrangendo desde a modelagem de requisitos e arquitetura de sistemas até o desenvolvimento de um protótipo de interface de alta fidelidade. Este repositório contém o **protótipo frontend navegável**, que demonstra a visão e as funcionalidades planejadas para a plataforma.
+O objetivo principal do projeto foi aplicar os conhecimentos teóricos de engenharia de software em um cenário prático, abrangendo desde a modelagem de requisitos e arquitetura de sistemas até o desenvolvimento de um protótipo de interface de alta fidelidade. Este repositório contém o "blueprint" do sistema, ou seja, toda a sua documentação e planejamento.
+
+É importante ressaltar que o website navegável contido aqui serve como uma **visualização do conceito planejado**. Ele não representa o estado final do projeto nem seu estágio de desenvolvimento atual, mas sim uma demonstração tangível da visão e das funcionalidades idealizadas durante a fase de análise.
 
 ---
 
