@@ -142,33 +142,6 @@ graph TB
 
 ---
 
-## ⚡ Visualizando o Protótipo
-
-Este repositório contém apenas o protótipo frontend. Para executá-lo localmente, siga os passos abaixo.
-
-### Pré-requisitos
-- **Node.js 18+**
-- **npm** ou **Yarn**
-
-### Instalação
-
-```bash
-# 1. Clone o repositório
-git clone [https://github.com/Ansbach-0/StarFit.git](https://github.com/Ansbach-0/StarFit.git)
-cd StarFit
-
-# 2. Instale as dependências do frontend
-npm install
-
-# 3. Execute o servidor de desenvolvimento
-npm run dev
-
-# 4. Abra o navegador em http://localhost:5173 (ou na porta indicada)
-```
-**Atenção:** Como este é um protótipo visual, as funcionalidades de backend, como login e salvamento de dados, não estão implementadas.
-
----
-
 ## 🏗️ Estrutura do Protótipo
 
 O código-fonte do protótipo está organizado da seguinte forma:
