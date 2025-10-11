@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>StarFit - Gestão de Academias e Fitness</title>
+	<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-black text-white font-sans">
+	<!-- Header -->
+	<header class="flex items-center justify-between px-12 py-6 bg-black/80 sticky top-0 z-50">
+		<div class="flex items-center gap-3">
+			<span class="text-pink-400 text-3xl">★</span>
+			<span class="text-teal-300 text-2xl font-bold tracking-tight">StarFit</span>
+		</div>
+		<nav class="hidden md:flex gap-12 text-lg font-medium">
+			<a href="#features" class="hover:text-teal-300 transition">Funcionalidades</a>
+			<a href="#dashboard" class="hover:text-teal-300 transition">Dashboard</a>
+			<a href="#architecture" class="hover:text-teal-300 transition">Arquitetura</a>
+			<a href="#mobile" class="hover:text-teal-300 transition">Mobile</a>
+		</nav>
+		<div class="flex items-center gap-6">
+			<a href="#login" class="text-gray-300 hover:text-white transition">Login</a>
+			<a href="#demo" class="bg-pink-500 text-white px-5 py-2 rounded-xl font-bold shadow-lg hover:bg-pink-600 transition">Demonstração</a>
+		</div>
+	</header>
+
+	<!-- Hero Section -->
+	<section class="flex flex-col items-center justify-center text-center py-28 bg-gradient-to-br from-black via-gray-900 to-black">
+		<h1 class="text-6xl md:text-7xl font-extrabold mb-8 leading-tight">
+			A Revolução na Gestão<br>
+			de <span class="bg-gradient-to-r from-pink-400 via-gray-400 to-teal-300 bg-clip-text text-transparent">Academias e Fitness</span>
+		</h1>
+		<p class="text-2xl mb-10 font-medium text-gray-200">Dashboard Inteligente de Luc</p>
+		<a href="#dashboard" class="bg-pink-500 text-white px-8 py-4 rounded-xl text-xl font-bold shadow-lg hover:bg-pink-600 transition">Ver Dashboard em Ação</a>
+		<p class="mt-12 text-gray-400 text-base">Projeto de Conclusão de Curso em Engenharia de Software<br><span class="font-bold">Nota: Este é um protótipo visual. As funcionalidades não estão ativas.</span></p>
+	</section>
+
+	<!-- Features Section -->
+	<section id="features" class="py-24 bg-[#18181b]">
+		<h2 class="text-4xl font-bold text-center mb-4 tracking-tight">Funcionalidades Principais</h2>
+		<p class="text-center text-gray-300 mb-14 text-lg">Tudo que você precisa para gerenciar sua academia com eficiência.</p>
+		<div class="grid grid-cols-1 md:grid-cols-4 gap-10 max-w-7xl mx-auto">
+			<div class="bg-[#23232a] rounded-2xl p-10 flex flex-col items-center shadow-lg border border-gray-800">
+				<div class="bg-pink-400 rounded-full p-5 mb-6"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a4 4 0 00-3-3.87M9 20h6M3 20h5v-2a4 4 0 013-3.87M6 8a4 4 0 118 0 4 4 0 01-8 0z" /></svg></div>
+				<h3 class="text-2xl font-bold mb-3">Gestão de Membros</h3>
+				<p class="text-gray-300 text-center text-base">Cadastro completo, controle de acesso com QR Code, histórico de pagamentos e atividades.</p>
+			</div>
+			<div class="bg-[#23232a] rounded-2xl p-10 flex flex-col items-center shadow-lg border border-gray-800">
+				<div class="bg-teal-400 rounded-full p-5 mb-6"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 17a2 2 0 002 2h6a2 2 0 002-2V7a2 2 0 00-2-2h-6a2 2 0 00-2 2v10z" /></svg></div>
+				<h3 class="text-2xl font-bold mb-3">Dashboard Executivo</h3>
+				<p class="text-gray-300 text-center text-base">Métricas em tempo real, relatórios financeiros e projeções de crescimento com IA.</p>
+			</div>
+			<div class="bg-[#23232a] rounded-2xl p-10 flex flex-col items-center shadow-lg border border-gray-800">
+				<div class="bg-green-400 rounded-full p-5 mb-6"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12v1m0 4v1m-4-5v1m0 4v1m-4-5v1m0 4v1M4 6h16" /></svg></div>
+				<h3 class="text-2xl font-bold mb-3">Marketing Automático</h3>
+				<p class="text-gray-300 text-center text-base">Newsletters, segmentação inteligente de campanhas e integração com WhatsApp.</p>
+			</div>
+			<div class="bg-[#23232a] rounded-2xl p-10 flex flex-col items-center shadow-lg border border-gray-800">
+				<div class="bg-blue-400 rounded-full p-5 mb-6"><svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-6a2 2 0 012-2h2a2 2 0 012 2v6m-6 0h6" /></svg></div>
+				<h3 class="text-2xl font-bold mb-3">Gestão Operacional</h3>
+				<p class="text-gray-300 text-center text-base">Agendamento de aulas, controle de equipamentos e gestão de estoque de suplementos.</p>
+			</div>
+		</div>
+	</section>
+
+	<!-- Dashboard Section -->
+	<section id="dashboard" class="py-24 bg-black">
+		<h2 class="text-4xl font-bold text-center mb-4 tracking-tight">Dashboard Inteligente em Ação</h2>
+		<p class="text-center text-gray-300 mb-2 text-lg">Visualize a saúde da sua academia em tempo real com métricas poderosas e gráficos interativos.</p>
+		<p class="text-center text-pink-400 mb-8 font-semibold">(Demonstração com dados fictícios)</p>
+		<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+			<div class="md:col-span-2 bg-[#18181b] rounded-2xl p-10 shadow-xl border border-gray-800">
+				<div class="grid grid-cols-2 md:grid-cols-4 gap-6 mb-10">
+					<div class="bg-[#23232a] rounded-xl p-5">
+						<div class="text-gray-300 text-sm">Receita Mensal (MRR)</div>
+						<div class="text-2xl font-bold">R$ 45.780</div>
+						<div class="text-green-400 text-sm">+5.2% vs mês anterior</div>
+					</div>
+					<div class="bg-[#23232a] rounded-xl p-5">
+						<div class="text-gray-300 text-sm">Membros Ativos</div>
+						<div class="text-2xl font-bold">852</div>
+						<div class="text-green-400 text-sm">+12 novos</div>
+					</div>
+					<div class="bg-[#23232a] rounded-xl p-5">
+						<div class="text-gray-300 text-sm">Taxa de Ocupação</div>
+						<div class="text-2xl font-bold">78%</div>
+						<div class="text-yellow-400 text-sm">-1.5% vs semana passada</div>
+					</div>
+					<div class="bg-[#23232a] rounded-xl p-5">
+						<div class="text-gray-300 text-sm">Churn Rate</div>
+						<div class="text-2xl font-bold">2.1%</div>
+						<div class="text-pink-400 text-sm">+0.3%</div>
+					</div>
+				</div>
+				<div class="mb-10">
+					<h3 class="text-lg font-bold mb-3">Evolução do Faturamento (Últimos 6 meses)</h3>
+					<div class="bg-[#23232a] rounded-xl p-5">
+						<img src="https://quickchart.io/chart?c={type:'line',data:{labels:['Mar','Abr','Mai','Jun','Jul','Ago'],datasets:[{label:'Faturamento',data:[32000,36000,40000,38000,41000,45000],borderColor:'rgb(236,72,153)',fill:false}]}}" alt="Gráfico de Faturamento" class="w-full h-56 object-contain">
+					</div>
+				</div>
+				<div>
+					<h3 class="text-lg font-bold mb-3">Últimos Membros Cadastrados</h3>
+					<table class="w-full text-left bg-[#23232a] rounded-xl">
+						<thead>
+							<tr class="text-gray-400">
+								<th class="py-3 px-4">NOME</th>
+								<th class="py-3 px-4">PLANO</th>
+								<th class="py-3 px-4">DATA DE INSCRIÇÃO</th>
+								<th class="py-3 px-4">STATUS</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="py-3 px-4 font-bold">Ana Clara Souza</td>
+								<td class="py-3 px-4">Plano Gold</td>
+								<td class="py-3 px-4">02/08/2025</td>
+								<td class="py-3 px-4"><span class="bg-green-500 text-white px-3 py-1 rounded">Ativo</span></td>
+							</tr>
+							<tr>
+								<td class="py-3 px-4 font-bold">Bruno Martins</td>
+								<td class="py-3 px-4">Plano Fit</td>
+								<td class="py-3 px-4">01/08/2025</td>
+								<td class="py-3 px-4"><span class="bg-green-500 text-white px-3 py-1 rounded">Ativo</span></td>
+							</tr>
+							<tr>
+								<td class="py-3 px-4 font-bold">Carla Dias</td>
+								<td class="py-3 px-4">Plano Premium</td>
+								<td class="py-3 px-4">31/07/2025</td>
+								<td class="py-3 px-4"><span class="bg-yellow-500 text-white px-3 py-1 rounded">Pendente</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="flex flex-col gap-10">
+				<div class="bg-[#18181b] rounded-2xl p-8 shadow-xl border border-gray-800">
+					<h3 class="text-lg font-bold mb-4">Distribuição de Planos</h3>
+					<img src="https://quickchart.io/chart?c={type:'doughnut',data:{labels:['Plano Fit','Plano Gold','Plano Premium'],datasets:[{data:[40,35,25],backgroundColor:['#2dd4bf','#38bdf8','#ec4899']}]} }" alt="Distribuição de Planos" class="w-full h-44 object-contain">
+				</div>
+				<div class="bg-[#18181b] rounded-2xl p-8 shadow-xl border border-gray-800">
+					<h3 class="text-lg font-bold mb-4">Ocupação das Aulas Hoje</h3>
+					<img src="https://quickchart.io/chart?c={type:'bar',data:{labels:['Spinning','Musculação','Yoga','Zumba','Crossfit'],datasets:[{label:'Ocupação',data:[95,70,50,90,85],backgroundColor:['#ef4444','#2dd4bf','#38bdf8','#f59e42','#a78bfa']}]} }" alt="Ocupação das Aulas" class="w-full h-44 object-contain">
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Architecture Section -->
+	<section id="architecture" class="py-24 bg-[#18181b]">
+		<h2 class="text-4xl font-bold text-center mb-4 tracking-tight">Arquitetura Robusta e Escalável</h2>
+		<p class="text-center text-gray-300 mb-12 text-lg">Construído com tecnologias modernas para alta performance e confiabilidade.</p>
+		<div class="max-w-5xl mx-auto bg-[#23232a] rounded-2xl p-10 mb-10 shadow-lg border border-gray-800">
+			<div class="flex flex-col md:flex-row items-center justify-between gap-12">
+				<div class="flex flex-col items-center">
+					<span class="text-purple-400 text-4xl mb-2">👤</span>
+					<span class="font-bold text-lg">Usuários</span>
+					<span class="text-gray-400 text-base">(Web & Mobile)</span>
+				</div>
+				<span class="text-gray-400 text-3xl">→</span>
+				<div class="flex flex-col items-center">
+					<span class="text-teal-300 text-4xl mb-2">🌐</span>
+					<span class="font-bold text-lg">Frontend & API Gateway</span>
+					<span class="text-gray-400 text-base">React (Vite) + Node.js (Express)</span>
+				</div>
+				<span class="text-gray-400 text-3xl">→</span>
+				<div class="flex flex-col items-center">
+					<span class="text-pink-400 text-4xl mb-2">⚙️</span>
+					<span class="font-bold text-lg">Microserviços</span>
+					<span class="text-gray-400 text-base">Usuários, Financeiro, Marketing, Analytics</span>
+				</div>
+				<span class="text-gray-400 text-3xl">→</span>
+				<div class="flex flex-col items-center">
+					<span class="text-indigo-300 text-4xl mb-2">💾</span>
+					<span class="font-bold text-lg">Bancos de Dados</span>
+					<span class="text-gray-400 text-base">PostgreSQL, Redis, InfluxDB</span>
+				</div>
+			</div>
+			<div class="mt-10 text-center text-gray-400 text-base">Distribuição de Carga e Segurança</div>
+		</div>
+		<div class="flex flex-wrap justify-center gap-4">
+			<span class="bg-teal-300 text-black px-5 py-2 rounded font-bold text-base">React</span>
+			<span class="bg-green-400 text-black px-5 py-2 rounded font-bold text-base">Node.js</span>
+			<span class="bg-blue-400 text-black px-5 py-2 rounded font-bold text-base">TypeScript</span>
+			<span class="bg-blue-700 text-white px-5 py-2 rounded font-bold text-base">PostgreSQL</span>
+			<span class="bg-red-500 text-white px-5 py-2 rounded font-bold text-base">Redis</span>
+			<span class="bg-blue-500 text-white px-5 py-2 rounded font-bold text-base">Docker</span>
+			<span class="bg-gray-700 text-white px-5 py-2 rounded font-bold text-base">AWS</span>
+			<span class="bg-teal-400 text-black px-5 py-2 rounded font-bold text-base">Tailwind CSS</span>
+		</div>
+	</section>
+
+	<!-- Mobile App Section -->
+	<section id="mobile" class="py-24 bg-black">
+		<div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center gap-16">
+			<div class="flex-1">
+				<h2 class="text-4xl font-bold mb-6 tracking-tight">Leve a Academia no Bolso</h2>
+				<p class="text-gray-300 mb-8 text-lg">Nosso aplicativo mobile, desenvolvido em React Native, oferece a melhor experiência para seus alunos, com agendamentos, acompanhamento de treinos e pagamentos na palma da mão.</p>
+				<div class="flex flex-wrap gap-4 mb-8">
+					<span class="bg-[#23232a] text-white px-5 py-2 rounded-xl text-base">Agendamento de Aulas</span>
+					<span class="bg-[#23232a] text-white px-5 py-2 rounded-xl text-base">Acompanhar Treinos</span>
+					<span class="bg-[#23232a] text-white px-5 py-2 rounded-xl text-base">Pagamentos Seguros</span>
+					<span class="bg-[#23232a] text-white px-5 py-2 rounded-xl text-base">Notificações Push</span>
+				</div>
+			</div>
+			<div class="flex-1 flex justify-center gap-10">
+				<div class="bg-[#18181b] rounded-[2.5rem] w-52 h-96 flex items-center justify-center -rotate-12 shadow-2xl border-4 border-[#23232a]">
+					<span class="text-2xl text-teal-300 font-bold">Dashboard</span>
+				</div>
+				<div class="bg-[#18181b] rounded-[2.5rem] w-52 h-96 flex items-center justify-center rotate-12 shadow-2xl border-4 border-[#23232a]">
+					<span class="text-2xl text-blue-300 font-bold">Agendamento</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer class="py-10 text-center text-gray-500 bg-[#18181b] text-base">
+		&copy; 2025 StarFit. Todos os direitos reservados.
+	</footer>
+</body>
+</html>
