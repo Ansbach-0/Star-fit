@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import RegisterPage from './RegisterPage';
+import RegisterPage from './src/RegisterPage';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
@@ -38,83 +38,31 @@ const LoginPage = () => {
     }
 
     return (
-        <div style={styles.container}>
-            <h2 style={styles.title}>StarFit Login</h2>
-            <form onSubmit={handleSubmit} style={styles.form}>
+        <div className="max-w-md mx-auto mt-16 p-8 rounded-xl shadow-lg bg-white text-center">
+            <h2 className="mb-6 text-2xl font-bold text-gray-800">StarFit Login</h2>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <input
                     type="email"
                     placeholder="Email"
                     value={email}
                     onChange={e => setEmail(e.target.value)}
-                    style={styles.input}
+                    className="p-3 text-lg rounded border border-gray-300"
                 />
                 <input
                     type="password"
                     placeholder="Password"
                     value={password}
                     onChange={e => setPassword(e.target.value)}
-                    style={styles.input}
+                    className="p-3 text-lg rounded border border-gray-300"
                 />
-                {error && <div style={styles.error}>{error}</div>}
-                <button type="submit" style={styles.button}>Login</button>
-                <button type="button" style={styles.registerButton} onClick={() => setShowRegister(true)}>
+                {error && <div className="text-red-600 text-sm">{error}</div>}
+                <button type="submit" className="bg-blue-600 text-white py-3 rounded font-semibold hover:bg-blue-700">Login</button>
+                <button type="button" className="bg-gray-100 text-blue-600 py-2 rounded font-semibold hover:bg-gray-200" onClick={() => setShowRegister(true)}>
                     Register
                 </button>
             </form>
         </div>
     );
-};
-
-const styles = {
-    container: {
-        maxWidth: 350,
-        margin: '60px auto',
-        padding: 32,
-        borderRadius: 8,
-        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-        background: '#fff',
-        textAlign: 'center',
-    },
-    title: {
-        marginBottom: 24,
-        color: '#2d2d2d',
-        fontWeight: 700,
-    },
-    form: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: 16,
-    },
-    input: {
-        padding: 10,
-        fontSize: 16,
-        borderRadius: 4,
-        border: '1px solid #ccc',
-    },
-    button: {
-        padding: 12,
-        fontSize: 16,
-        borderRadius: 4,
-        border: 'none',
-        background: '#1976d2',
-        color: '#fff',
-        fontWeight: 600,
-        cursor: 'pointer',
-    },
-    registerButton: {
-        padding: 10,
-        fontSize: 15,
-        borderRadius: 4,
-        border: 'none',
-        background: '#eee',
-        color: '#1976d2',
-        fontWeight: 600,
-        cursor: 'pointer',
-    },
-    error: {
-        color: '#d32f2f',
-        fontSize: 14,
-    },
 };
 
 export default LoginPage;
