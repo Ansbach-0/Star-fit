@@ -1,5 +1,5 @@
 import React from 'react';
-import LoginPage from '../starfitapp';
+import LoginPage from './LoginPage';
 
 function App() {
   return <LoginPage />;
