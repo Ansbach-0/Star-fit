@@ -42,13 +42,17 @@ const LoginPage = ({ onLoginSuccess }) => {
         }
 
         setLoading(true);
+        
+        console.log('Attempting login with:', { email, password: '***' });
 
         try {
-            const res = await api.login(email, password);
-            const data = await res.json();
+            const { response, data } = await api.login(email, password);
+            console.log('Response status:', response.status);
+            console.log('Response ok:', response.ok);
+            console.log('Response data:', data);
             
-            if (!res.ok) {
-                setError(data.error || 'Login failed. Please check your credentials.');
+            if (!response.ok) {
+                setError(data.error || data.errors?.[0]?.msg || 'Login failed. Please check your credentials.');
             } else {
                 // Store user data
                 localStorage.setItem('starfit_user', JSON.stringify(data.user));
@@ -62,7 +66,8 @@ const LoginPage = ({ onLoginSuccess }) => {
                 navigate(data.user.role === 'manager' ? '/manager' : '/user');
             }
         } catch (err) {
-            setError('Unable to connect to server. Please ensure the backend is running.');
+            console.error('Login error:', err);
+            setError('Unable to connect to server. Please ensure the backend is running on port 3001.');
         } finally {
             setLoading(false);
         }

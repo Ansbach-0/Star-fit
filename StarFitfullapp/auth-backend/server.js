@@ -13,17 +13,21 @@ const PORT = process.env.PORT || 3001;
 const JWT_SECRET = process.env.JWT_SECRET || 'fallback_secret_key';
 const SALT_ROUNDS = 10;
 
-// Rate limiting
+// Rate limiting - More lenient for development
 const loginLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
-    max: 5, // 5 attempts
-    message: 'Too many login attempts, please try again after 15 minutes'
+    max: 50, // 50 attempts (increased for development)
+    message: { error: 'Too many login attempts, please try again after 15 minutes' },
+    standardHeaders: true,
+    legacyHeaders: false,
 });
 
 const registerLimiter = rateLimit({
     windowMs: 60 * 60 * 1000, // 1 hour
-    max: 3, // 3 registrations per hour
-    message: 'Too many accounts created, please try again later'
+    max: 20, // 20 registrations per hour (increased for development)
+    message: { error: 'Too many accounts created, please try again later' },
+    standardHeaders: true,
+    legacyHeaders: false,
 });
 
 // CORS configuration

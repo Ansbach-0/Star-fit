@@ -47,20 +47,46 @@ async function handleResponse(response) {
 
 export const api = {
   async login(email, password) {
-    const response = await fetch(`${API_BASE_URL}/login`, {
-      method: 'POST',
-      headers: getHeaders(),
-      body: JSON.stringify({ email, password }),
-    });
-    
-    if (response.ok) {
-      const data = await response.json();
-      if (data.token) {
-        tokenManager.setToken(data.token);
+    console.log('API: Attempting login to:', `${API_BASE_URL}/login`);
+    try {
+      const response = await fetch(`${API_BASE_URL}/login`, {
+        method: 'POST',
+        headers: getHeaders(),
+        body: JSON.stringify({ email, password }),
+      });
+      
+      console.log('API: Response status:', response.status);
+      console.log('API: Response headers:', response.headers);
+      
+      // Check content type before parsing
+      const contentType = response.headers.get('content-type');
+      let data;
+      
+      if (contentType && contentType.includes('application/json')) {
+        data = await response.json();
+      } else {
+        // Handle non-JSON responses (like rate limit text)
+        const text = await response.text();
+        console.log('API: Non-JSON response:', text);
+        data = { 
+          error: response.status === 429 
+            ? 'Too many attempts. Please wait a few minutes and try again.' 
+            : text || 'Server error' 
+        };
       }
+      
+      console.log('API: Response data:', data);
+      
+      if (response.ok && data.token) {
+        tokenManager.setToken(data.token);
+        console.log('API: Token saved successfully');
+      }
+      
+      return { response, data };
+    } catch (error) {
+      console.error('API: Login error:', error);
+      throw error;
     }
-    
-    return response;
   },
 
   async register(email, password, name, plan = 'Plano Fit', manager_id = null) {
