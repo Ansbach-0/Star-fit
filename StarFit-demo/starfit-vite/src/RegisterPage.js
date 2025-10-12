@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import api from './api';
 
 const RegisterPage = ({ onBack }) => {
     const [email, setEmail] = useState('');
@@ -15,11 +16,7 @@ const RegisterPage = ({ onBack }) => {
             return;
         }
         try {
-            const res = await fetch('http://localhost:4000/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
+            const res = await api.register(email, password);
             const data = await res.json();
             if (!res.ok) {
                 setError(data.error || 'Registration failed.');
@@ -29,7 +26,7 @@ const RegisterPage = ({ onBack }) => {
                 setPassword('');
             }
         } catch (err) {
-            setError('Network error.');
+            setError('Network error. Please ensure the backend is running on port 4000.');
         }
     };
 

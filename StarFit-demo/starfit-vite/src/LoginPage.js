@@ -1,11 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import RegisterPage from './RegisterPage';
+import api from './api';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const [showRegister, setShowRegister] = useState(false);
+    const [connectionStatus, setConnectionStatus] = useState('checking');
+
+    useEffect(() => {
+        // Test backend connection on mount
+        api.testConnection().then(isConnected => {
+            setConnectionStatus(isConnected ? 'connected' : 'disconnected');
+        });
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,11 +24,7 @@ const LoginPage = () => {
             return;
         }
         try {
-            const res = await fetch('http://localhost:4000/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            });
+            const res = await api.login(email, password);
             const data = await res.json();
             if (!res.ok) {
                 setError(data.error || 'Login failed.');
@@ -29,7 +34,7 @@ const LoginPage = () => {
                 // TODO: Redirect or store user info if needed
             }
         } catch (err) {
-            setError('Network error.');
+            setError('Network error. Please ensure the backend is running on port 4000.');
         }
     };
 
@@ -40,6 +45,18 @@ const LoginPage = () => {
     return (
         <div className="max-w-md mx-auto mt-16 p-8 rounded-xl shadow-lg bg-white text-center">
             <h2 className="mb-6 text-2xl font-bold text-gray-800">StarFit Login</h2>
+            
+            {/* Connection Status Indicator */}
+            <div className={`mb-4 p-2 rounded text-sm ${
+                connectionStatus === 'connected' ? 'bg-green-100 text-green-700' :
+                connectionStatus === 'disconnected' ? 'bg-red-100 text-red-700' :
+                'bg-yellow-100 text-yellow-700'
+            }`}>
+                {connectionStatus === 'connected' ? '✓ Backend Connected' :
+                 connectionStatus === 'disconnected' ? '✗ Backend Disconnected - Please start the server' :
+                 '⟳ Checking connection...'}
+            </div>
+
             <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <input
                     type="email"
