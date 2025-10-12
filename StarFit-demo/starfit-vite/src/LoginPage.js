@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import RegisterPage from './RegisterPage';
 import api from './api';
 
-const LoginPage = () => {
+const LoginPage = ({ onLoginSuccess }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
@@ -20,21 +20,21 @@ const LoginPage = () => {
         e.preventDefault();
         setError('');
         if (!email || !password) {
-            setError('Please enter both email and password.');
+            setError('Por favor, preencha email e senha.');
             return;
         }
         try {
             const res = await api.login(email, password);
             const data = await res.json();
             if (!res.ok) {
-                setError(data.error || 'Login failed.');
+                setError(data.error || 'Login falhou.');
             } else {
                 setError('');
-                alert('Logged in successfully!');
-                // TODO: Redirect or store user info if needed
+                // Pass user data to parent component
+                onLoginSuccess(data.user);
             }
         } catch (err) {
-            setError('Network error. Please ensure the backend is running on port 4000.');
+            setError('Erro de rede. Certifique-se de que o backend está rodando na porta 4000.');
         }
     };
 
@@ -43,43 +43,67 @@ const LoginPage = () => {
     }
 
     return (
-        <div className="max-w-md mx-auto mt-16 p-8 rounded-xl shadow-lg bg-white text-center">
-            <h2 className="mb-6 text-2xl font-bold text-gray-800">StarFit Login</h2>
-            
-            {/* Connection Status Indicator */}
-            <div className={`mb-4 p-2 rounded text-sm ${
-                connectionStatus === 'connected' ? 'bg-green-100 text-green-700' :
-                connectionStatus === 'disconnected' ? 'bg-red-100 text-red-700' :
-                'bg-yellow-100 text-yellow-700'
-            }`}>
-                {connectionStatus === 'connected' ? '✓ Backend Connected' :
-                 connectionStatus === 'disconnected' ? '✗ Backend Disconnected - Please start the server' :
-                 '⟳ Checking connection...'}
-            </div>
+        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-6">
+            <div className="max-w-md w-full bg-gray-800 rounded-xl shadow-2xl p-8 border border-gray-700">
+                <div className="text-center mb-8">
+                    <div className="flex items-center justify-center gap-2 mb-4">
+                        <span className="text-pink-400 text-3xl">★</span>
+                        <span className="text-teal-300 text-2xl font-bold">StarFit</span>
+                    </div>
+                    <h2 className="text-2xl font-bold text-white">Login</h2>
+                </div>
+                
+                {/* Connection Status Indicator */}
+                <div className={`mb-4 p-2 rounded text-sm ${
+                    connectionStatus === 'connected' ? 'bg-green-500/20 text-green-400' :
+                    connectionStatus === 'disconnected' ? 'bg-red-500/20 text-red-400' :
+                    'bg-yellow-500/20 text-yellow-400'
+                }`}>
+                    {connectionStatus === 'connected' ? '✓ Backend Conectado' :
+                     connectionStatus === 'disconnected' ? '✗ Backend Desconectado - Inicie o servidor' :
+                     '⟳ Verificando conexão...'}
+                </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                <input
-                    type="email"
-                    placeholder="Email"
-                    value={email}
-                    onChange={e => setEmail(e.target.value)}
-                    className="p-3 text-lg rounded border border-gray-300"
-                />
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={e => setPassword(e.target.value)}
-                    className="p-3 text-lg rounded border border-gray-300"
-                />
-                {error && <div className="text-red-600 text-sm">{error}</div>}
-                <button type="submit" className="bg-blue-600 text-white py-3 rounded font-semibold hover:bg-blue-700">Login</button>
-                <button type="button" className="bg-gray-100 text-blue-600 py-2 rounded font-semibold hover:bg-gray-200" onClick={() => setShowRegister(true)}>
-                    Register
-                </button>
-            </form>
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+                    <input
+                        type="email"
+                        placeholder="Email"
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        className="p-3 text-lg rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:border-teal-400"
+                    />
+                    <input
+                        type="password"
+                        placeholder="Senha"
+                        value={password}
+                        onChange={e => setPassword(e.target.value)}
+                        className="p-3 text-lg rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:border-teal-400"
+                    />
+                    {error && <div className="text-red-400 text-sm bg-red-500/10 p-2 rounded">{error}</div>}
+                    
+                    <button type="submit" className="bg-teal-500 text-white py-3 rounded-lg font-semibold hover:bg-teal-600 transition">
+                        Entrar
+                    </button>
+                    
+                    <button 
+                        type="button" 
+                        className="bg-gray-700 text-white py-2 rounded-lg font-semibold hover:bg-gray-600 transition" 
+                        onClick={() => setShowRegister(true)}
+                    >
+                        Criar Conta
+                    </button>
+                </form>
+
+                {/* Demo Credentials */}
+                <div className="mt-6 p-4 bg-gray-700/50 rounded-lg text-sm">
+                    <p className="text-gray-300 mb-2 font-semibold">🔐 Contas de Teste:</p>
+                    <p className="text-gray-400 text-xs">Manager: manager@starfit.com / admin123</p>
+                    <p className="text-gray-400 text-xs">Usuário: user@starfit.com / user123</p>
+                </div>
+            </div>
         </div>
     );
 };
 
 export default LoginPage;
+
