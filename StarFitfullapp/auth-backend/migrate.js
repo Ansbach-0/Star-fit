@@ -18,7 +18,7 @@ const db = new sqlite3.Database('./users.db', (err) => {
 
 // Create tables with new schema
 db.serialize(() => {
-    // Users table
+    // Users table with manager_id relationship
     db.run(`CREATE TABLE users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         email TEXT UNIQUE NOT NULL,
@@ -27,10 +27,13 @@ db.serialize(() => {
         name TEXT,
         plan TEXT,
         next_payment DATE,
-        status TEXT DEFAULT 'active'
+        status TEXT DEFAULT 'active',
+        manager_id INTEGER,
+        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (manager_id) REFERENCES users(id)
     )`, (err) => {
         if (err) console.error('Error creating users table:', err.message);
-        else console.log('✓ Users table created');
+        else console.log('✓ Users table created with manager_id relationship');
     });
 
     // Exercises table

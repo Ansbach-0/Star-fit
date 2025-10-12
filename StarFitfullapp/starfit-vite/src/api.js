@@ -1,76 +1,184 @@
 // API configuration for backend communication
-const API_BASE_URL = 'http://localhost:4000';
+const API_BASE_URL = 'http://localhost:3001';
+
+// Token management
+const TOKEN_KEY = 'starfit_auth_token';
+
+export const tokenManager = {
+  setToken(token) {
+    localStorage.setItem(TOKEN_KEY, token);
+  },
+  
+  getToken() {
+    return localStorage.getItem(TOKEN_KEY);
+  },
+  
+  removeToken() {
+    localStorage.removeItem(TOKEN_KEY);
+  },
+  
+  isAuthenticated() {
+    return !!this.getToken();
+  }
+};
+
+// Helper function to add auth header
+function getHeaders(includeAuth = false) {
+  const headers = { 'Content-Type': 'application/json' };
+  
+  if (includeAuth) {
+    const token = tokenManager.getToken();
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+  }
+  
+  return headers;
+}
+
+// Helper function to handle API responses
+async function handleResponse(response) {
+  if (response.status === 401 || response.status === 403) {
+    tokenManager.removeToken();
+    window.location.href = '/login';
+  }
+  return response;
+}
 
 export const api = {
   async login(email, password) {
     const response = await fetch(`${API_BASE_URL}/login`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: getHeaders(),
       body: JSON.stringify({ email, password }),
     });
+    
+    if (response.ok) {
+      const data = await response.json();
+      if (data.token) {
+        tokenManager.setToken(data.token);
+      }
+    }
+    
     return response;
   },
 
-  async register(email, password, role = 'user', name = '', plan = 'Plano Fit') {
+  async register(email, password, name, plan = 'Plano Fit', manager_id = null) {
     const response = await fetch(`${API_BASE_URL}/register`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password, role, name, plan }),
+      headers: getHeaders(),
+      body: JSON.stringify({ email, password, name, plan, manager_id }),
     });
+    
+    if (response.ok) {
+      const data = await response.json();
+      if (data.token) {
+        tokenManager.setToken(data.token);
+      }
+    }
+    
     return response;
   },
 
-  async getUsers() {
-    const response = await fetch(`${API_BASE_URL}/users`);
+  async registerManager(email, password, name, gym_name = '', phone = '') {
+    const response = await fetch(`${API_BASE_URL}/register/manager`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify({ email, password, name, gym_name, phone }),
+    });
+    
+    if (response.ok) {
+      const data = await response.json();
+      if (data.token) {
+        tokenManager.setToken(data.token);
+      }
+    }
+    
     return response;
+  },
+
+  logout() {
+    tokenManager.removeToken();
+  },
+
+  async getUsers(myClientsOnly = false) {
+    const url = myClientsOnly 
+      ? `${API_BASE_URL}/users?my_clients=true`
+      : `${API_BASE_URL}/users`;
+    const response = await fetch(url, {
+      headers: getHeaders(true),
+    });
+    return handleResponse(response);
   },
 
   async getStats() {
-    const response = await fetch(`${API_BASE_URL}/stats`);
-    return response;
+    const response = await fetch(`${API_BASE_URL}/stats`, {
+      headers: getHeaders(true),
+    });
+    return handleResponse(response);
   },
 
   async getExercises() {
-    const response = await fetch(`${API_BASE_URL}/exercises`);
-    return response;
+    const response = await fetch(`${API_BASE_URL}/exercises`, {
+      headers: getHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  async getManagerClients() {
+    const response = await fetch(`${API_BASE_URL}/manager/clients`, {
+      headers: getHeaders(true),
+    });
+    return handleResponse(response);
+  },
+
+  async assignClientToManager(userId, managerId = null) {
+    const response = await fetch(`${API_BASE_URL}/users/${userId}/assign-manager`, {
+      method: 'POST',
+      headers: getHeaders(true),
+      body: JSON.stringify({ manager_id: managerId }),
+    });
+    return handleResponse(response);
   },
 
   async createRoutine(user_id, exercise_id, sets, reps) {
     const response = await fetch(`${API_BASE_URL}/routines`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: getHeaders(true),
       body: JSON.stringify({ user_id, exercise_id, sets, reps }),
     });
-    return response;
+    return handleResponse(response);
   },
 
   async getRoutines(user_id) {
-    const response = await fetch(`${API_BASE_URL}/routines/${user_id}`);
-    return response;
+    const response = await fetch(`${API_BASE_URL}/routines/${user_id}`, {
+      headers: getHeaders(true),
+    });
+    return handleResponse(response);
   },
 
   async completeRoutine(routine_id) {
     const response = await fetch(`${API_BASE_URL}/routines/${routine_id}/complete`, {
       method: 'PUT',
+      headers: getHeaders(true),
     });
-    return response;
+    return handleResponse(response);
   },
 
   async deleteRoutine(routine_id) {
     const response = await fetch(`${API_BASE_URL}/routines/${routine_id}`, {
       method: 'DELETE',
+      headers: getHeaders(true),
     });
-    return response;
+    return handleResponse(response);
   },
 
   async testConnection() {
     try {
-      const response = await fetch(`${API_BASE_URL}/login`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: 'test', password: 'test' }),
+      const response = await fetch(`${API_BASE_URL}/stats`, {
+        headers: getHeaders(true),
       });
-      return response.ok || response.status === 401; // Connection works if we get any response
+      return response.ok || response.status === 401 || response.status === 403;
     } catch (error) {
       console.error('Backend connection failed:', error);
       return false;

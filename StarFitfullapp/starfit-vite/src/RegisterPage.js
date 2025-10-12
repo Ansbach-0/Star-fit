@@ -1,115 +1,218 @@
 import React, { useState } from 'react';
-import api from './api';
+import { useNavigate, Link } from 'react-router-dom';
+import { api } from './api';
 
-const RegisterPage = ({ onBack }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [role, setRole] = useState('user');
-    const [plan, setPlan] = useState('Plano Fit');
+const RegisterPage = () => {
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        plan: 'Plano Fit'
+    });
     const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
+
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+    };
+
+    const validateForm = () => {
+        if (!formData.name || !formData.email || !formData.password) {
+            setError('Please fill in all required fields');
+            return false;
+        }
+
+        if (formData.password.length < 6) {
+            setError('Password must be at least 6 characters long');
+            return false;
+        }
+
+        if (formData.password !== formData.confirmPassword) {
+            setError('Passwords do not match');
+            return false;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(formData.email)) {
+            setError('Please enter a valid email address');
+            return false;
+        }
+
+        return true;
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError('');
-        setSuccess('');
-        if (!email || !password || !name) {
-            setError('Por favor, preencha todos os campos.');
+
+        if (!validateForm()) {
             return;
         }
+
+        setLoading(true);
+
         try {
-            const res = await api.register(email, password, role, name, plan);
-            const data = await res.json();
-            if (!res.ok) {
-                setError(data.error || 'Registro falhou.');
+            const response = await api.register(
+                formData.email,
+                formData.password,
+                formData.name,
+                formData.plan
+            );
+
+            if (response.ok) {
+                const data = await response.json();
+                // Token is already stored by the api module
+                navigate('/user');
             } else {
-                setSuccess('Registro bem-sucedido! Você já pode fazer login.');
-                setEmail('');
-                setPassword('');
-                setName('');
+                const errorData = await response.json();
+                setError(errorData.error || errorData.errors?.[0]?.msg || 'Registration failed');
             }
         } catch (err) {
-            setError('Erro de rede. Certifique-se de que o backend está rodando na porta 4000.');
+            setError('Unable to connect to server. Please try again.');
+        } finally {
+            setLoading(false);
         }
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 flex items-center justify-center p-6">
-            <div className="max-w-md w-full bg-gray-800 rounded-xl shadow-2xl p-8 border border-gray-700">
+        <div className="min-h-screen bg-gradient-to-br from-teal-500 via-blue-500 to-purple-600 flex items-center justify-center p-4">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-md p-8">
                 <div className="text-center mb-8">
                     <div className="flex items-center justify-center gap-2 mb-4">
-                        <span className="text-pink-400 text-3xl">★</span>
-                        <span className="text-teal-300 text-2xl font-bold">StarFit</span>
+                        <span className="text-pink-500 text-4xl">★</span>
+                        <span className="text-teal-600 text-3xl font-bold">StarFit</span>
                     </div>
-                    <h2 className="text-2xl font-bold text-white">Criar Conta</h2>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Create Your Account</h2>
+                    <p className="text-gray-600">Join StarFit and start your fitness journey</p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-                    <input
-                        type="text"
-                        placeholder="Nome Completo"
-                        value={name}
-                        onChange={e => setName(e.target.value)}
-                        className="p-3 text-lg rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:border-teal-400"
-                    />
-                    <input
-                        type="email"
-                        placeholder="Email"
-                        value={email}
-                        onChange={e => setEmail(e.target.value)}
-                        className="p-3 text-lg rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:border-teal-400"
-                    />
-                    <input
-                        type="password"
-                        placeholder="Senha"
-                        value={password}
-                        onChange={e => setPassword(e.target.value)}
-                        className="p-3 text-lg rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:border-teal-400"
-                    />
-                    
-                    <div>
-                        <label className="block text-gray-300 text-sm mb-2">Tipo de Conta</label>
-                        <select
-                            value={role}
-                            onChange={e => setRole(e.target.value)}
-                            className="w-full p-3 text-lg rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:border-teal-400"
-                        >
-                            <option value="user">Usuário</option>
-                            <option value="manager">Gerente</option>
-                        </select>
-                    </div>
-
-                    {role === 'user' && (
-                        <div>
-                            <label className="block text-gray-300 text-sm mb-2">Plano</label>
-                            <select
-                                value={plan}
-                                onChange={e => setPlan(e.target.value)}
-                                className="w-full p-3 text-lg rounded-lg border border-gray-600 bg-gray-700 text-white focus:outline-none focus:border-teal-400"
-                            >
-                                <option value="Plano Fit">Plano Fit - R$ 99/mês</option>
-                                <option value="Plano Gold">Plano Gold - R$ 149/mês</option>
-                                <option value="Plano Premium">Plano Premium - R$ 199/mês</option>
-                            </select>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                    {error && (
+                        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg text-sm">
+                            {error}
                         </div>
                     )}
 
-                    {error && <div className="text-red-400 text-sm bg-red-500/10 p-2 rounded">{error}</div>}
-                    {success && <div className="text-green-400 text-sm bg-green-500/10 p-2 rounded">{success}</div>}
-                    
-                    <button type="submit" className="bg-teal-500 text-white py-3 rounded-lg font-semibold hover:bg-teal-600 transition">
-                        Registrar
-                    </button>
-                    
-                    <button 
-                        type="button" 
-                        className="bg-gray-700 text-white py-2 rounded-lg font-semibold hover:bg-gray-600 transition" 
-                        onClick={onBack}
+                    <div>
+                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="name">
+                            Full Name *
+                        </label>
+                        <input
+                            type="text"
+                            id="name"
+                            name="name"
+                            value={formData.name}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
+                            placeholder="John Doe"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="email">
+                            Email Address *
+                        </label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
+                            placeholder="your.email@example.com"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="plan">
+                            Select Your Plan *
+                        </label>
+                        <select
+                            id="plan"
+                            name="plan"
+                            value={formData.plan}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
+                        >
+                            <option value="Plano Fit">Plano Fit - $99/month</option>
+                            <option value="Plano Gold">Plano Gold - $149/month</option>
+                            <option value="Plano Premium">Plano Premium - $199/month</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="password">
+                            Password *
+                        </label>
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            value={formData.password}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
+                            placeholder="Min. 6 characters"
+                            required
+                        />
+                    </div>
+
+                    <div>
+                        <label className="block text-gray-700 text-sm font-semibold mb-2" htmlFor="confirmPassword">
+                            Confirm Password *
+                        </label>
+                        <input
+                            type="password"
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            value={formData.confirmPassword}
+                            onChange={handleChange}
+                            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500 transition"
+                            placeholder="Confirm your password"
+                            required
+                        />
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={loading}
+                        className="w-full bg-gradient-to-r from-teal-500 to-blue-500 text-white py-3 rounded-lg font-semibold hover:from-teal-600 hover:to-blue-600 transition duration-300 shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Voltar ao Login
+                        {loading ? 'Creating Account...' : 'Create Account'}
                     </button>
                 </form>
+
+                <div className="mt-6 text-center space-y-2">
+                    <p className="text-gray-600 text-sm">
+                        Already have an account?{' '}
+                        <Link to="/login" className="text-teal-600 hover:text-teal-700 font-semibold">
+                            Login here
+                        </Link>
+                    </p>
+                    <p className="text-gray-600 text-sm">
+                        Are you a gym manager?{' '}
+                        <Link to="/register/manager" className="text-purple-600 hover:text-purple-700 font-semibold">
+                            Register as Manager
+                        </Link>
+                    </p>
+                    <p className="text-gray-600 text-sm">
+                        <Link to="/" className="text-gray-500 hover:text-gray-700">
+                            ← Back to Home
+                        </Link>
+                    </p>
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-gray-200">
+                    <p className="text-xs text-gray-500 text-center">
+                        By registering, you agree to our Terms of Service and Privacy Policy
+                    </p>
+                </div>
             </div>
         </div>
     );
