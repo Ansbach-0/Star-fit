@@ -78,29 +78,10 @@ db.serialize(() => {
             if (err) console.error(`Error inserting exercise ${ex[1]}:`, err.message);
         });
     });
-    insertExercise.finalize(() => console.log('✓ Exercises inserted'));
-
-    // Insert demo users
-    const users = [
-        ['manager@starfit.com', 'admin123', 'manager', 'Admin Manager', null, null, 'active'],
-        ['user@starfit.com', 'user123', 'user', 'João Silva', 'Plano Gold', '2025-11-11', 'active'],
-        ['ana@starfit.com', 'ana123', 'user', 'Ana Clara Souza', 'Plano Gold', '2025-11-02', 'active'],
-        ['bruno@starfit.com', 'bruno123', 'user', 'Bruno Martins', 'Plano Fit', '2025-11-01', 'active'],
-        ['carla@starfit.com', 'carla123', 'user', 'Carla Dias', 'Plano Premium', '2025-10-31', 'active']
-    ];
-
-    const insertUser = db.prepare('INSERT INTO users (email, password, role, name, plan, next_payment, status) VALUES (?, ?, ?, ?, ?, ?, ?)');
-    users.forEach(user => {
-        insertUser.run(user, (err) => {
-            if (err) console.error(`Error inserting user ${user[0]}:`, err.message);
-        });
-    });
-    insertUser.finalize(() => {
-        console.log('✓ Demo users inserted');
+    insertExercise.finalize(() => {
+        console.log('✓ Exercises inserted');
         console.log('\n✅ Database migration complete!');
-        console.log('\n🔐 Demo Credentials:');
-        console.log('Manager: manager@starfit.com / admin123');
-        console.log('User: user@starfit.com / user123\n');
+        console.log('\n� Next step: Run "node seed.js" to create demo users with bcrypt passwords\n');
     });
 });
 
